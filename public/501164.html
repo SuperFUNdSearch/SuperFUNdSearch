@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8'/>
+    <title>Homepage</title>
+    <link rel="stylesheet" href="https://use.typekit.net/ace2gwi.css">
+    <link rel='stylesheet' href="/public/static/annastyles2.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite-api@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-tooltip"></script>
+  </head>
+  <body>
+    </div class='page-container'>
+      <div class='header-container'>
+        <div class='header'>
+          <div class='project-title'>Superfund Search</div>
+          <div class='about'>
+            <a class='home-about' href='home-info.html'>Back to home</a>
+          </div>
+        </div>
+      </div>
+      <div class='general-block'>
+        <div class='heading-big'>Superfund Site Name: Interstate Pollution Control, Inc.</div>
+        <div class='timeline'>
+          <div class='line'></div>
+
+          <div class='dot blue'>
+            <div class='milestone'> Initial Assessment Completed </div>
+            <div class='date d1'>03/01/1984</div>
+          </div>
+
+          <div class='dot blue'>
+            <div class='milestone'> Proposed to the National Priorities List </div>
+            <div class='date d1'>06/24/1988</div>
+          </div>
+
+          <div class='dot blue'>
+            <div class='milestone'> Finalized on the National Priorities List </div>
+            <div class='date d1'>03/31/1989</div>
+          </div>
+
+          <div class='dot blue'>
+            <div class='milestone'> Remedial Investigation Started</div>
+            <div class='date d1'>09/27/1990</div>
+          </div>
+
+          <div class='dot blue'>
+            <div class='milestone'> Final Remedy Selected </div>
+            <div class='date d1'>09/28/1999</div>
+          </div>
+
+          <div class='dot white'>
+            <div class='milestone wack3'> Final Remedial Action Started </div>
+            <div class='date d1 wack4'>Not Included</div>
+          </div>
+
+          <div class='dot blue'>
+            <div class='milestone wack1'> Construction Completed </div>
+            <div class='date d1 wack2'>09/06/2006</div>
+          </div>
+
+          <div class='dot white'>
+            <div class='milestone'> Deleted from National Priorities List </div>
+            <div class='date d1'>Not Yet Achieved</div>
+          </div>
+
+          <div class='dot white'>
+            <div class='milestone'> Deleted from National Priorities List </div>
+            <div class='date d1'>Not Yet Achieved</div>
+          </div>
+
+        </div>
+        <div class='normal-font'>Latest update: 03/11/2011</div>
+      </div>
+      <div class='general-block'>
+        <div class='paragraph-big'>
+          <div class='heading-small'>The Interstate Pollution Control, Inc. site reached the latest stage: Final Remedial Action Started, 955 days faster than the national average. It has been 3735 days since its latest update. The pollution score of Interstate Pollution Control, Inc. is in the 70.71 percentile of the nation and its rate of progress is 22th best in Illinois.</div>
+        </div>
+      </div>
+      <div class='general-block'>
+        <div class='chart-container'>
+          <div id="chart1"></div>
+          <div id="chart3"></div>
+        </div>
+      </div>
+
+      <script>
+        const options = {
+          config: {
+          },
+          init: (view) => {
+            view.tooltip(new vegaTooltip.Handler().call);
+          },
+          view: {
+            loader: vega.loader({
+              baseURL: "https://cdn.jsdelivr.net/npm/vega-datasets@2/",
+            }),
+            renderer: "svg",
+          },
+        };
+
+        vl.register(vega, vegaLite, options);
+
+        //first chart
+        vl.markBar({
+          tooltip: true,
+          cornerRadius: 20,
+        })
+          .title("Number of Days on EPA SuperFund Site List")
+          .data([
+            { idk: 'This Site', "days":11739 },
+            { idk: 'Illinois', "days":11542 },
+            { idk: "United States", "days":9931 },
+          ])
+
+          .encode(
+            vl.x().fieldQ("days")
+            .title("Total Days on List"),
+            vl.y().fieldN("idk")
+            .sort(['This Site', 'Illinois', "United States"])
+            .title(' '),
+            vl.color().value("#a3bfa9"),
+            vl.tooltip().fieldN("days")
+          )
+          .width(250)
+          .height(100)
+          .render()
+          .then(viewElement => {
+            document.getElementById('chart1').appendChild(viewElement);
+          });
+
+          //graph # 2
+          vl.markBar({
+            tooltip: true,
+            cornerRadius: 20,
+          })
+            .title("Days to Most Recent Milestone")
+            .data([
+              { idk: 'This Site', "days": 149},
+              { idk: 'Illinois', "days": 1153 },
+              { idk: "United States", "days": 1104 },
+            ])
+
+            .encode(
+              vl.x().fieldQ("days")
+              .title("Days to Most Recent Milestone"),
+              vl.y().fieldN("idk")
+              .sort(['This Site', 'Illinois', "United States"])
+              .title(' '),
+              vl.color().value("#95aec7"),
+              vl.tooltip().fieldN("days")
+            )
+            .width(250)
+            .height(100)
+            .render()
+            .then(viewElement => {
+              document.getElementById('chart3').appendChild(viewElement);
+            });
+      </script>
+    </div>
+    <div class='footer-container'>
+      <div class='authors'>website made by Anna Greene, Cade Caneddy, and Katherine Moldow</div>
+    </div>
+  </body>
+</html>

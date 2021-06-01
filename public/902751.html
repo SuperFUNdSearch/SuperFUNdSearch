@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8'/>
+    <title>Homepage</title>
+    <link rel="stylesheet" href="https://use.typekit.net/ace2gwi.css">
+    <link rel='stylesheet' href="/public/static/annastyles2.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite-api@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-tooltip"></script>
+  </head>
+  <body>
+    </div class='page-container'>
+      <div class='header-container'>
+        <div class='header'>
+          <div class='project-title'>Superfund Search</div>
+          <div class='about'>
+            <a class='home-about' href='home-info.html'>Back to home</a>
+          </div>
+        </div>
+      </div>
+      <div class='general-block'>
+        <div class='heading-big'>Superfund Site Name: Castle Air Force Base (6 Areas)</div>
+        <div class='timeline'>
+          <div class='line'></div>
+
+          <div class='dot blue'>
+            <div class='milestone'> Initial Assessment Completed </div>
+            <div class='date d1'>04/01/1984</div>
+          </div>
+
+          <div class='dot blue'>
+            <div class='milestone'> Proposed to the National Priorities List </div>
+            <div class='date d1'>10/15/1984</div>
+          </div>
+
+          <div class='dot blue'>
+            <div class='milestone'> Finalized on the National Priorities List </div>
+            <div class='date d1'>07/22/1987</div>
+          </div>
+
+          <div class='dot blue'>
+            <div class='milestone'> Remedial Investigation Started</div>
+            <div class='date d1'>07/21/1989</div>
+          </div>
+
+          <div class='dot blue'>
+            <div class='milestone'> Final Remedy Selected </div>
+            <div class='date d1'>07/03/2006</div>
+          </div>
+
+          <div class='dot blue'>
+            <div class='milestone wack3'> Final Remedial Action Started </div>
+            <div class='date d1 wack4'>03/04/1993</div>
+          </div>
+
+          <div class='dot blue'>
+            <div class='milestone wack1'> Construction Completed </div>
+            <div class='date d1 wack2'>09/21/2006</div>
+          </div>
+
+          <div class='dot white'>
+            <div class='milestone'> Deleted from National Priorities List </div>
+            <div class='date d1'>Not Yet Achieved</div>
+          </div>
+
+          <div class='dot blue'>
+            <div class='milestone'> Deleted from National Priorities List </div>
+            <div class='date d1'>11/06/2007</div>
+          </div>
+
+        </div>
+        <div class='normal-font'>Latest update: 03/21/2019</div>
+      </div>
+      <div class='general-block'>
+        <div class='paragraph-big'>
+          <div class='heading-small'>The Castle Air Force Base (6 Areas) site reached the latest stage: Final Remedial Action Started, 1024 days faster than the national average. It has been 803 days since its latest update. The pollution score of Castle Air Force Base (6 Areas) is in the 38 percentile of the nation and its rate of progress is 76th best in California.</div>
+        </div>
+      </div>
+      <div class='general-block'>
+        <div class='chart-container'>
+          <div id="chart1"></div>
+          <div id="chart3"></div>
+        </div>
+      </div>
+
+      <script>
+        const options = {
+          config: {
+          },
+          init: (view) => {
+            view.tooltip(new vegaTooltip.Handler().call);
+          },
+          view: {
+            loader: vega.loader({
+              baseURL: "https://cdn.jsdelivr.net/npm/vega-datasets@2/",
+            }),
+            renderer: "svg",
+          },
+        };
+
+        vl.register(vega, vegaLite, options);
+
+        //first chart
+        vl.markBar({
+          tooltip: true,
+          cornerRadius: 20,
+        })
+          .title("Number of Days on EPA SuperFund Site List")
+          .data([
+            { idk: 'This Site', "days":12357 },
+            { idk: 'California', "days":10452 },
+            { idk: "United States", "days":9931 },
+          ])
+
+          .encode(
+            vl.x().fieldQ("days")
+            .title("Total Days on List"),
+            vl.y().fieldN("idk")
+            .sort(['This Site', 'California', "United States"])
+            .title(' '),
+            vl.color().value("#a3bfa9"),
+            vl.tooltip().fieldN("days")
+          )
+          .width(250)
+          .height(100)
+          .render()
+          .then(viewElement => {
+            document.getElementById('chart1').appendChild(viewElement);
+          });
+
+          //graph # 2
+          vl.markBar({
+            tooltip: true,
+            cornerRadius: 20,
+          })
+            .title("Days to Most Recent Milestone")
+            .data([
+              { idk: 'This Site', "days": 80},
+              { idk: 'California', "days": 1352 },
+              { idk: "United States", "days": 1104 },
+            ])
+
+            .encode(
+              vl.x().fieldQ("days")
+              .title("Days to Most Recent Milestone"),
+              vl.y().fieldN("idk")
+              .sort(['This Site', 'California', "United States"])
+              .title(' '),
+              vl.color().value("#95aec7"),
+              vl.tooltip().fieldN("days")
+            )
+            .width(250)
+            .height(100)
+            .render()
+            .then(viewElement => {
+              document.getElementById('chart3').appendChild(viewElement);
+            });
+      </script>
+    </div>
+    <div class='footer-container'>
+      <div class='authors'>website made by Anna Greene, Cade Caneddy, and Katherine Moldow</div>
+    </div>
+  </body>
+</html>
